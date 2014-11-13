@@ -160,7 +160,7 @@ We also host a mirror of the ActiveMQ repository on GitHub: https://github.com/a
 
 ### Commit Messages
 
-We follow the 50/72 git commit message format.  An ActiveMQ6 commit message should be formatted in the following manner:
+Wsdasde follow the 50/72 git commit message format.  An ActiveMQ6 commit message should be formatted in the following manner:
 
 * Add the ACTIVEMQ6 JIRA or Bugzilla reference (if one exists) followed by a brief description of the change in the first line.
 * Insert a single blank line after the first line.

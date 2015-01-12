@@ -44,6 +44,7 @@ import org.apache.activemq.core.server.ActiveMQServers;
 import org.apache.activemq.jms.server.config.ConnectionFactoryConfiguration;
 import org.apache.activemq.jms.server.config.impl.ConnectionFactoryConfigurationImpl;
 import org.apache.activemq.jms.server.impl.JMSServerManagerImpl;
+import org.apache.activemq.tests.integration.jms.bridge.TransactionManagerLocatorImpl;
 import org.apache.activemq.tests.unit.util.InVMNamingContext;
 import org.junit.After;
 import org.junit.Assert;
@@ -230,6 +231,8 @@ public class JMSTestBase extends ServiceTestBase
       MBeanServerFactory.releaseMBeanServer(mbeanServer);
 
       mbeanServer = null;
+
+      TransactionManagerLocatorImpl.reset();
 
       super.tearDown();
    }

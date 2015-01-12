@@ -35,4 +35,9 @@ public class TransactionManagerLocatorImpl implements TransactionManagerLocator
    {
       return tm;
    }
+
+   public static void reset()
+   {
+      tm = new TransactionManagerImple();
+   }
 }

@@ -17,21 +17,18 @@
 package org.apache.activemq.common.example;
 import java.io.File;
 import java.util.HashMap;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 import javax.jms.Connection;
 import javax.jms.JMSException;
-import javax.naming.InitialContext;
 
-import org.apache.activemq.api.core.TransportConfiguration;
-import org.apache.activemq.api.core.client.ClientSession;
-import org.apache.activemq.api.jms.ActiveMQJMSClient;
-import org.apache.activemq.api.jms.JMSFactoryType;
-import org.apache.activemq.core.client.impl.DelegatingSession;
-import org.apache.activemq.core.remoting.impl.netty.NettyConnectorFactory;
-import org.apache.activemq.jms.client.ActiveMQConnection;
-import org.apache.activemq.jms.client.ActiveMQConnectionFactory;
+import org.hornetq.api.core.TransportConfiguration;
+import org.hornetq.api.core.client.ClientSession;
+import org.hornetq.api.jms.HornetQJMSClient;
+import org.hornetq.api.jms.JMSFactoryType;
+import org.hornetq.core.remoting.impl.netty.NettyConnectorFactory;
+import org.hornetq.jms.client.HornetQConnection;
+import org.hornetq.jms.client.HornetQConnectionFactory;
 
 /**
  * Base class for ActiveMQ examples.
@@ -161,7 +158,7 @@ public abstract class ActiveMQExample
             params.put("host", "localhost");
             params.put("port", 5445 + id);
             TransportConfiguration transportConfiguration = new TransportConfiguration(NettyConnectorFactory.class.getName(), params);
-            ActiveMQConnectionFactory cf = ActiveMQJMSClient.createConnectionFactoryWithoutHA(JMSFactoryType.CF, transportConfiguration);
+            HornetQConnectionFactory cf = HornetQJMSClient.createConnectionFactoryWithoutHA(JMSFactoryType.CF, transportConfiguration);
             cf.createConnection().close();
             System.out.println("server restarted");
          }
@@ -177,7 +174,7 @@ public abstract class ActiveMQExample
 
    protected int getServer(Connection connection)
    {
-      ClientSession session = ((ActiveMQConnection) connection).getInitialSession();
+      ClientSession session = ((HornetQConnection) connection).getInitialSession();
       TransportConfiguration transportConfiguration = session.getSessionFactory().getConnectorConfiguration();
       String port = (String) transportConfiguration.getParams().get("port");
       return Integer.valueOf(port) - 5445;
@@ -187,7 +184,7 @@ public abstract class ActiveMQExample
    {
       for (Connection connection : connections)
       {
-         ClientSession session = ((ActiveMQConnection) connection).getInitialSession();
+         ClientSession session = ((HornetQConnection) connection).getInitialSession();
          TransportConfiguration transportConfiguration = session.getSessionFactory().getConnectorConfiguration();
          String port = (String) transportConfiguration.getParams().get("port");
          if(Integer.valueOf(port) == server + 5445)

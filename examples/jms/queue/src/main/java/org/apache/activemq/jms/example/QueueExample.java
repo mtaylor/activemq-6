@@ -34,6 +34,18 @@ import org.apache.activemq.common.example.ActiveMQExample;
  */
 public class QueueExample extends ActiveMQExample
 {
+   public QueueExample()
+   {
+      try
+      {
+         System.out.println(InitialContext.doLookup("queue/exampleQueue"));
+      }
+      catch(Exception e)
+      {
+         e.printStackTrace();
+      }
+   }
+
    public static void main(final String[] args)
    {
       new QueueExample().run(args);

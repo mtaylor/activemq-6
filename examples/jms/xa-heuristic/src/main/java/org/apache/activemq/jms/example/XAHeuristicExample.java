@@ -41,9 +41,9 @@ import javax.transaction.xa.XAResource;
 import javax.transaction.xa.Xid;
 
 import org.apache.activemq.api.core.management.ObjectNameBuilder;
-import org.apache.activemq.common.example.DummyXid;
 import org.apache.activemq.common.example.ActiveMQExample;
-import org.apache.activemq.utils.UUIDGenerator;
+import org.apache.activemq.common.example.DummyXid;
+import org.hornetq.utils.UUIDGenerator;
 
 /**
  * A simple JMS example showing how to administer un-finished transactions.

@@ -58,7 +58,7 @@ public class BridgeExample extends ActiveMQExample
          // Step 1 - we create an initial context for looking up JNDI on node 0
 
          Hashtable<String, Object> properties = new Hashtable<String, Object>();
-         properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+         properties.put("java.naming.factory.initial", "org.apache.activemq.common.example.hornetq.HornetQInitialContextFactory");
          properties.put("java.naming.provider.url", "tcp://127.0.0.1:5445");
          properties.put("queue.queue/sausage-factory", "sausage-factory");
          ic0 = new InitialContext(properties);
@@ -74,7 +74,7 @@ public class BridgeExample extends ActiveMQExample
          // Step 4 - we create an initial context for looking up JNDI on node 1
 
          properties = new Hashtable<String, Object>();
-         properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+         properties.put("java.naming.factory.initial", "org.apache.activemq.common.example.hornetq.HornetQInitialContextFactory");
          properties.put("java.naming.provider.url", "tcp://127.0.0.1:5446");
          properties.put("queue.queue/mincing-machine", "mincing-machine");
          ic1 = new InitialContext(properties);

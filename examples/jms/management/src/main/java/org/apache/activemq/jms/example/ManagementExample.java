@@ -28,9 +28,9 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.naming.InitialContext;
 
-import org.apache.activemq.api.jms.ActiveMQJMSClient;
-import org.apache.activemq.api.jms.management.JMSManagementHelper;
 import org.apache.activemq.common.example.ActiveMQExample;
+import org.hornetq.api.jms.HornetQJMSClient;
+import org.hornetq.api.jms.management.JMSManagementHelper;
 
 /**
  * An example that shows how to manage ActiveMQ using JMS messages.
@@ -78,7 +78,7 @@ public class ManagementExample extends ActiveMQExample
 
          // Step 9. create the JMS management queue.
          // It is a "special" queue and it is not looked up from JNDI but constructed directly
-         Queue managementQueue = ActiveMQJMSClient.createQueue("activemq.management");
+         Queue managementQueue = HornetQJMSClient.createQueue("activemq.management");
 
          // Step 10. Create a QueueRequestor for the management queue (see queue-requestor example)
          QueueRequestor requestor = new QueueRequestor(session, managementQueue);

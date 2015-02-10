@@ -34,10 +34,11 @@ import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
 import javax.naming.InitialContext;
 
+
 import org.apache.activemq.api.core.management.MessageCounterInfo;
 import org.apache.activemq.api.core.management.ObjectNameBuilder;
-import org.apache.activemq.api.jms.management.JMSQueueControl;
 import org.apache.activemq.common.example.ActiveMQExample;
+import org.hornetq.api.jms.management.JMSQueueControl;
 
 /**
  * An example showing how to use message counters to have information on a queue.

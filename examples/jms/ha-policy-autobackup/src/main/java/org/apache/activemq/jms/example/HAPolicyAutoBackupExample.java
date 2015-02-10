@@ -66,7 +66,7 @@ public class HAPolicyAutoBackupExample extends ActiveMQExample
       {
          // Step 1. Get an initial context for looking up JNDI from server 0 and 1
          Hashtable<String, Object> properties = new Hashtable<String, Object>();
-         properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+         properties.put("java.naming.factory.initial", "org.apache.activemq.common.example.hornetq.HornetQInitialContextFactory");
          properties.put("java.naming.provider.url", args[0]);
          properties.put("queue.queue/exampleQueue", "exampleQueue");
          properties.put("connection.ConnectionFactory.ha", true);
@@ -76,7 +76,7 @@ public class HAPolicyAutoBackupExample extends ActiveMQExample
          ic0 = new InitialContext(properties);
 
          properties = new Hashtable<String, Object>();
-         properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+         properties.put("java.naming.factory.initial", "org.apache.activemq.common.example.hornetq.HornetQInitialContextFactory");
          properties.put("java.naming.provider.url", args[1]);
          properties.put("connection.ConnectionFactory.ha", true);
          properties.put("connection.ConnectionFactory.retryInterval", 1000);

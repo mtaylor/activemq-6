@@ -21,6 +21,7 @@ under the License.
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                xmlns="urn:activemq"
                xsi:schemaLocation="urn:activemq /schema/activemq-server.xsd">
+
    <jms xmlns="urn:activemq:jms">
       <!--the queue used by the example-->
       <queue name="exampleQueue"/>
@@ -36,6 +37,11 @@ under the License.
 
       <!-- Connectors -->
       <connectors>
+         <connector name="hornetq-netty-connector">
+            <factory-class>org.hornetq.core.remoting.impl.netty.NettyConnectorFactory</factory-class>
+            <param key="port" value="5446"/>
+         </connector>
+
          <connector name="netty-connector">
             <factory-class>org.apache.activemq.core.remoting.impl.netty.NettyConnectorFactory</factory-class>
             <param key="port" value="5446"/>
@@ -51,12 +57,20 @@ under the License.
       </acceptors>
 
       <!-- Clustering configuration -->
+
       <broadcast-groups>
          <broadcast-group name="my-broadcast-group">
             <group-address>${udp-address:231.7.7.7}</group-address>
             <group-port>9876</group-port>
             <broadcast-period>100</broadcast-period>
             <connector-ref>netty-connector</connector-ref>
+         </broadcast-group>
+
+         <broadcast-group name="hornetq-broadcast-group">
+            <group-address>231.8.8.8</group-address>
+            <group-port>9877</group-port>
+            <broadcast-period>100</broadcast-period>
+            <connector-ref>hornetq-netty-connector</connector-ref>
          </broadcast-group>
       </broadcast-groups>
 

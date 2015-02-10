@@ -32,7 +32,7 @@ import javax.transaction.xa.Xid;
 
 import org.apache.activemq.common.example.DummyXid;
 import org.apache.activemq.common.example.ActiveMQExample;
-import org.apache.activemq.utils.UUIDGenerator;
+import org.hornetq.utils.UUIDGenerator;
 
 /**
  * A simple JMS example showing the usage of XA support in JMS.

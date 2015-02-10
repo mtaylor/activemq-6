@@ -46,6 +46,11 @@ under the License.
             <factory-class>org.apache.activemq.core.remoting.impl.netty.NettyConnectorFactory</factory-class>
             <param key="port" value="5448"/>
          </connector>
+
+         <connector name="hornetq-netty-connector">
+            <factory-class>org.hornetq.core.remoting.impl.netty.NettyConnectorFactory</factory-class>
+            <param key="port" value="5448"/>
+         </connector>
       </connectors>
 
       <!-- Acceptors -->
@@ -63,6 +68,13 @@ under the License.
             <group-port>9876</group-port>
             <broadcast-period>100</broadcast-period>
             <connector-ref>netty-connector</connector-ref>
+         </broadcast-group>
+
+         <broadcast-group name="hornetq-broadcast-group">
+            <group-address>231.8.8.8</group-address>
+            <group-port>9877</group-port>
+            <broadcast-period>100</broadcast-period>
+            <connector-ref>hornetq-netty-connector</connector-ref>
          </broadcast-group>
       </broadcast-groups>
 

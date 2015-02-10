@@ -60,7 +60,7 @@ public class DivertExample extends ActiveMQExample
       {
          // Step 1. Create an initial context to perform the JNDI lookup on the London server
          Hashtable<String, Object> properties = new Hashtable<String, Object>();
-         properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+         properties.put("java.naming.factory.initial", "org.apache.activemq.common.example.hornetq.HornetQInitialContextFactory");
          properties.put("java.naming.provider.url", args[0]);
          properties.put("queue.queue/orders", "orders");
          properties.put("topic.topic/priceUpdates", "priceUpdates");
@@ -79,7 +79,7 @@ public class DivertExample extends ActiveMQExample
 
          // Step 6. Create an initial context to perform the JNDI lookup on the New York server
          properties = new Hashtable<String, Object>();
-         properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+         properties.put("java.naming.factory.initial", "org.apache.activemq.common.example.hornetq.HornetQInitialContextFactory");
          properties.put("java.naming.provider.url", args[1]);
          properties.put("topic.topic/newYorkPriceUpdates", "newYorkPriceUpdates");
          initialContextNewYork = new InitialContext(properties);

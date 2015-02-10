@@ -28,8 +28,8 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.naming.InitialContext;
 
-import org.apache.activemq.api.core.Message;
 import org.apache.activemq.common.example.ActiveMQExample;
+import org.hornetq.api.core.Message;
 
 /**
  * A simple JMS scheduled delivery example that delivers a message in 5 seconds.

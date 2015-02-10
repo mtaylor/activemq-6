@@ -57,12 +57,12 @@ public class ColocatedFailoverScaleDownExample extends ActiveMQExample
       {
          // Step 1. Get an initial context for looking up JNDI for both servers
          Hashtable<String, Object> properties = new Hashtable<String, Object>();
-         properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+         properties.put("java.naming.factory.initial", "org.apache.activemq.common.example.hornetq.HornetQInitialContextFactory");
          properties.put("java.naming.provider.url", args[1]);
          initialContext1 = new InitialContext(properties);
 
          properties = new Hashtable<String, Object>();
-         properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+         properties.put("java.naming.factory.initial", "org.apache.activemq.common.example.hornetq.HornetQInitialContextFactory");
          properties.put("java.naming.provider.url", args[0]);
          properties.put("queue.queue/exampleQueue", "exampleQueue");
          properties.put("connection.ConnectionFactory.ha", true);

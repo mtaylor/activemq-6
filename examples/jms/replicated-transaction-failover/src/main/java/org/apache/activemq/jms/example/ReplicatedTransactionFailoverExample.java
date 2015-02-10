@@ -26,8 +26,8 @@ import javax.jms.TextMessage;
 import javax.jms.TransactionRolledBackException;
 import javax.naming.InitialContext;
 
-import org.apache.activemq.api.core.Message;
 import org.apache.activemq.common.example.ActiveMQExample;
+import org.hornetq.api.core.Message;
 
 /**
  * A simple example that demonstrates failover of the JMS connection from one node to another

@@ -61,7 +61,7 @@ public class ClusteredGroupingExample extends ActiveMQExample
       {
          // Step 1. Get an initial context for looking up JNDI from server 0
          Hashtable<String, Object> properties = new Hashtable<String, Object>();
-         properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+         properties.put("java.naming.factory.initial", "org.apache.activemq.common.example.hornetq.HornetQInitialContextFactory");
          properties.put("java.naming.provider.url", args[0]);
          properties.put("queue.queue/exampleQueue", "exampleQueue");
          ic0 = new InitialContext(properties);
@@ -74,7 +74,7 @@ public class ClusteredGroupingExample extends ActiveMQExample
 
          // Step 4. Get an initial context for looking up JNDI from server 1
          properties = new Hashtable<String, Object>();
-         properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+         properties.put("java.naming.factory.initial", "org.apache.activemq.common.example.hornetq.HornetQInitialContextFactory");
          properties.put("java.naming.provider.url", args[1]);
          ic1 = new InitialContext(properties);
 
@@ -83,7 +83,7 @@ public class ClusteredGroupingExample extends ActiveMQExample
 
          // Step 4. Get an initial context for looking up JNDI from server 2
          properties = new Hashtable<String, Object>();
-         properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+         properties.put("java.naming.factory.initial", "org.apache.activemq.common.example.hornetq.HornetQInitialContextFactory");
          properties.put("java.naming.provider.url", args[2]);
          ic2 = new InitialContext(properties);
 

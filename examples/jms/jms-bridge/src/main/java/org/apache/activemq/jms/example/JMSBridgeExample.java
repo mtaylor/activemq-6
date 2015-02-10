@@ -166,7 +166,7 @@ public class JMSBridgeExample
    {
       Hashtable<String, String> jndiProps = new Hashtable<String, String>();
       jndiProps.put("java.naming.provider.url", server);
-      jndiProps.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+      jndiProps.put("java.naming.factory.initial", "org.apache.activemq.common.example.hornetq.HornetQInitialContextFactory");
       jndiProps.put("queue.target/queue", "target");
       jndiProps.put("topic.source/topic", "topic");
       return jndiProps;

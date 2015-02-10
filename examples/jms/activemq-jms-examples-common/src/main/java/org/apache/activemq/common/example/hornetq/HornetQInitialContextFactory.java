@@ -293,7 +293,7 @@ public class HornetQInitialContextFactory implements InitialContextFactory
                transportConfigurations[i] = new TransportConfiguration(NettyConnectorFactory.class.getCanonicalName(), individualTransportConfig);
             }
 
-            if (Boolean.TRUE.equals(environment.get(HA)))
+            if ("true".equals(environment.get(HA)) || "true".equals(environment.get("connection.ConnectionFactory." + HA)))
             {
                connectionFactory = HornetQJMSClient.createConnectionFactoryWithHA(getJmsFactoryType(environment), transportConfigurations);
             }

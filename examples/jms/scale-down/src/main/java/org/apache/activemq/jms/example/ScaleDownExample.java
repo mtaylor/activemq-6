@@ -55,7 +55,7 @@ public class ScaleDownExample extends ActiveMQExample
       {
          // Step 1. Get an initial context for looking up JNDI for both servers
          Hashtable<String, Object> properties = new Hashtable<String, Object>();
-         properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+         properties.put("java.naming.factory.initial", "org.apache.activemq.common.example.hornetq.HornetQInitialContextFactory");
          properties.put("java.naming.provider.url", args[0]);
          properties.put("connection.ConnectionFactory.ha", true);
          properties.put("connection.ConnectionFactory.retryInterval", 1000);
@@ -65,7 +65,7 @@ public class ScaleDownExample extends ActiveMQExample
          initialContext = new InitialContext(properties);
 
          properties = new Hashtable<String, Object>();
-         properties.put("java.naming.factory.initial", "org.apache.activemq.jndi.ActiveMQInitialContextFactory");
+         properties.put("java.naming.factory.initial", "org.apache.activemq.common.example.hornetq.HornetQInitialContextFactory");
          properties.put("java.naming.provider.url", args[1]);
          properties.put("connection.ConnectionFactory.ha", true);
          properties.put("connection.ConnectionFactory.retryInterval", 1000);

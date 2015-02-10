@@ -80,7 +80,7 @@ public class ClientSideLoadBalancingExample extends ActiveMQExample
          Session sessionC = connectionC.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
          System.out.println("Session A - " + ((org.hornetq.core.client.impl.DelegatingSession) ((org.hornetq.jms.client.HornetQSession) sessionA).getCoreSession()).getConnection().getRemoteAddress() );
-      System.out.println("Session B - " + ((org.hornetq.core.client.impl.DelegatingSession) ((org.hornetq.jms.client.HornetQSession) sessionB).getCoreSession()).getConnection().getRemoteAddress() );
+         System.out.println("Session B - " + ((org.hornetq.core.client.impl.DelegatingSession) ((org.hornetq.jms.client.HornetQSession) sessionB).getCoreSession()).getConnection().getRemoteAddress() );
          System.out.println("Session C - " + ((org.hornetq.core.client.impl.DelegatingSession) ((org.hornetq.jms.client.HornetQSession) sessionC).getCoreSession()).getConnection().getRemoteAddress() );
 
          // Step 6. We create JMS MessageProducer objects on the sessions

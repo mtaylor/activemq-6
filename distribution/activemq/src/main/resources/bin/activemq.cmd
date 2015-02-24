@@ -47,21 +47,14 @@ echo.
 
 :RUN_JAVA
 
-if "%JVM_FLAGS%" == "" set JVM_FLAGS=-XX:+UseParallelGC -XX:+AggressiveOpts -XX:+UseFastAccessorMethods -Xms512M -Xmx1024M -Dactivemq.home=$ACTIVEMQ_HOME -Ddata.dir=$ACTIVEMQ_HOME/data -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Dlogging.configuration="file:%ACTIVEMQ_HOME%\config\logging.properties" -Djava.library.path="%ACTIVEMQ_HOME%/bin/lib/linux-i686:%ACTIVEMQ_HOME%/bin/lib/linux-x86_64"
+if exist "%STANDALONE_CONF%" (
+   echo Calling "%STANDALONE_CONF%"
+   call "%STANDALONE_CONF%" %*
+) else (
+   echo Config file not found "%STANDALONE_CONF%"
+)
 
-if "x%ACTIVEMQ_OPTS%" == "x" goto noACTIVEMQ_OPTS
-  set JVM_FLAGS=%JVM_FLAGS% %ACTIVEMQ_OPTS%
-:noACTIVEMQ_OPTS
-
-if "x%ACTIVEMQ_DEBUG%" == "x" goto noDEBUG
-  set JVM_FLAGS=%JVM_FLAGS% -Xdebug -Xnoagent -Djava.compiler=NONE -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
-:noDEBUG
-
-if "x%ACTIVEMQ_PROFILE%" == "x" goto noPROFILE
-  set JVM_FLAGS=-agentlib:yjpagent %JVM_FLAGS%
-:noPROFILE
-
-rem set JMX_OPTS=-Dcom.sun.management.jmxremote.port=1099 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false
+set JVM_FLAGS="%JAVA_OPTS% %CLUSTER_PROPS% -Dactivemq.home=%ACTIVEMQ_HOME% -Ddata.dir=%ACTIVEMQ_DATA_DIR% -Djava.util.logging.manager=%ACTIVEMQ_LOG_MANAGER% -Dlogging.configuration=%ACTIVEMQ_LOGGING_CONF% -Djava.library.path="%ACTIVEMQ_HOME%/bin/lib/linux-i686:%ACTIVEMQ_HOME%/bin/lib/linux-x86_64 %DEBUG_ARGS%"
 
 set JVM_FLAGS=%JVM_FLAGS% %JMX_OPTS% -Dactivemq.home="%ACTIVEMQ_HOME%" -classpath "%ACTIVEMQ_HOME%\lib\*"
 

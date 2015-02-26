@@ -49,14 +49,12 @@ public class Run implements Action
    @Override
    public Object execute(ActionContext context) throws Exception
    {
-
       ActiveMQ.printBanner();
 
-      String activemqHome = System.getProperty("activemq.home").replace("\\", "/");
-
+      String activemqHome = System.getProperty("activemq.home");
       if (configuration == null)
       {
-         configuration = "xml:" + activemqHome + "/config/non-clustered/bootstrap.xml";
+         configuration = "xml:" + activemqHome + DEFAULT_CONFIG_PATH;
       }
 
       System.out.println("Loading configuration file: " + configuration);

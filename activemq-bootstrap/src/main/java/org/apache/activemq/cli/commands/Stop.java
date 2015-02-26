@@ -35,8 +35,9 @@ public class Stop implements Action
    {
       if (configuration == null)
       {
-         configuration = "xml:" + System.getProperty("activemq.home").replace("\\", "/") + "/config/non-clustered/bootstrap.xml";
+         configuration = "xml:" + System.getProperty("activemq.home") + DEFAULT_CONFIG_PATH;
       }
+
       BrokerDTO broker = BrokerFactory.createBrokerConfiguration(configuration);
 
       String fileName = new URI(broker.server.configuration).getSchemeSpecificPart();

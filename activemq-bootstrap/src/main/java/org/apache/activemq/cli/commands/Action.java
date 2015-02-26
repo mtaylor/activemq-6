@@ -16,9 +16,11 @@
  */
 package org.apache.activemq.cli.commands;
 
+import java.io.File;
+
 public interface Action
 {
+   String DEFAULT_CONFIG_PATH = File.separator + "config" + File.separator + "non-clustered" + File.separator + "bootstrap.xml";
 
    Object execute(ActionContext context) throws Exception;
-
 }

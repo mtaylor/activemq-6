@@ -194,10 +194,21 @@ public class TopicControlTest extends ManagementTestBase
       String jsonString = topicControl.listDurableSubscriptionsAsJSON();
       SubscriptionInfo[] infos = SubscriptionInfo.from(jsonString);
       Assert.assertEquals(2, infos.length);
-      Assert.assertEquals(clientID, infos[0].getClientID());
-      Assert.assertEquals(subscriptionName, infos[0].getName());
-      Assert.assertEquals(clientID + "2", infos[1].getClientID());
-      Assert.assertEquals(subscriptionName + "2", infos[1].getName());
+       /*we cant guarantee the order so need to check*/
+      if (clientID.equals(infos[0].getClientID()))
+      {
+          Assert.assertEquals(clientID, infos[0].getClientID());
+          Assert.assertEquals(subscriptionName, infos[0].getName());
+          Assert.assertEquals(clientID + "2", infos[1].getClientID());
+          Assert.assertEquals(subscriptionName + "2", infos[1].getName());
+      }
+      else
+      {
+          Assert.assertEquals(clientID, infos[1].getClientID());
+          Assert.assertEquals(subscriptionName, infos[1].getName());
+          Assert.assertEquals(clientID + "2", infos[0].getClientID());
+          Assert.assertEquals(subscriptionName + "2", infos[0].getName());
+      }
 
       jsonString = topicControl.listNonDurableSubscriptionsAsJSON();
       infos = SubscriptionInfo.from(jsonString);

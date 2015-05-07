@@ -36,6 +36,8 @@
       <tools.jar>${java.home}/../lib/tools.jar</tools.jar>
       <byteman.version>2.2.0</byteman.version>
       <activemq.basedir>${project.basedir}/../..</activemq.basedir>
+      <jboss-jts.version>4.17.13.Final</jboss-jts.version>
+      <hornetq.version>2.4.7.Final</hornetq.version>
    </properties>
 
    <dependencies>
@@ -179,19 +181,38 @@
          <scope>test</scope>
       </dependency>
 
+      <dependency>
+         <groupId>org.apache.activemq</groupId>
+         <artifactId>artemis-hornetq-protocol</artifactId>
+         <version>${project.version}</version>
+         <scope>test</scope>
+      </dependency>
 
       <!-- Needed for JMS Bridge Tests -->
-      <dependency>
-         <groupId>org.jboss.jbossts.jts</groupId>
-         <artifactId>jbossjts-jacorb</artifactId>
-         <version>4.17.13.Final</version>
-      </dependency>
       <dependency>
          <groupId>org.jboss</groupId>
          <artifactId>jboss-transaction-spi</artifactId>
          <version>7.1.0.Final</version>
+         <exclusions>
+            <exclusion>
+               <groupId>org.hornetq</groupId>
+               <artifactId>hornetq-commons</artifactId>
+            </exclusion>
+         </exclusions>
       </dependency>
 
+      <dependency>
+         <groupId>org.hornetq</groupId>
+         <artifactId>hornetq-core-client</artifactId>
+         <version>${hornetq.version}</version>
+      </dependency>
+
+      <!-- Needed for XA tests -->
+      <dependency>
+         <groupId>org.jboss.jbossts.jts</groupId>
+         <artifactId>jbossjts-jacorb</artifactId>
+         <version>${jboss-jts.version}</version>
+      </dependency>
    </dependencies>
 
    <build>

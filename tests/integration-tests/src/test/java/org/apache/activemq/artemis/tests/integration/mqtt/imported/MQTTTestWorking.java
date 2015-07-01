@@ -261,14 +261,22 @@ public class MQTTTestWorking extends MQTTTestSupport
       provider.subscribe("foo", AT_LEAST_ONCE);
 
 
-      for (int j=1; j<10; j++)
+      for (int j=0; j<1; j++)
       {
          long time = System.currentTimeMillis();
-         for (int i = 0; i < 40000; i++)
+         int count = 0;
+         for (int i = 0; i < 1000000; i++)
          {
-            String payload = "Test Message: " + i;
+            String payload = "";
+            for (int p = 0; p < 10; p++)
+            {
+               payload += "A";
+            }
+            System.out.println(payload.getBytes().length);
             provider.publish("foo", payload.getBytes(), AT_LEAST_ONCE);
             byte[] message = provider.receive(5000);
+            count++;
+            System.out.println("SENT: " + count);
 
             //Thread.sleep(2000);
 //            assertNotNull("Should get a message", message);

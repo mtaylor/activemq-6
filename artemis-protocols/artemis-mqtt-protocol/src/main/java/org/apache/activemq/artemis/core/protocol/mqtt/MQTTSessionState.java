@@ -23,6 +23,7 @@ import org.apache.activemq.artemis.core.server.impl.ServerMessageImpl;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MQTTSessionState
 {
@@ -58,6 +59,7 @@ public class MQTTSessionState
 
    private Object outboundLock = new Object();
 
+   private AtomicInteger lastId = new AtomicInteger(1);
 
    public MQTTSessionState(String clientId)
    {
@@ -78,6 +80,11 @@ public class MQTTSessionState
       durable = false;
    }
 
+   int generateId()
+   {
+      lastId.compareAndSet(Short.MAX_VALUE, 1);
+      return lastId.addAndGet(1);
+   }
 
    void addOutbandMessageRef(int mqttId, String address, long serverMessageId, int qos)
    {

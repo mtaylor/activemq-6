@@ -69,8 +69,6 @@ public class MQTTProtocolHandler
 
    private ScheduledFuture<MQTTKeepAliveCheck> keepAliveFuture;
 
-   private int count = 0;
-
    public MQTTProtocolHandler(MQTTSession session)
    {
       log = MQTTLogger.LOGGER;
@@ -88,10 +86,6 @@ public class MQTTProtocolHandler
    {
       try
       {
-         if (count == 1)
-         {
-            System.out.println(count);
-         }
          List<Object> messages = decoder.decode(buffer);
 
          for (Object obj : messages)
@@ -102,7 +96,11 @@ public class MQTTProtocolHandler
             if (message.decoderResult().isFailure())
             {
                // FIXME We currently do not support messages > netty buffer size.
-               log.warn("Malformed Message, Disconnecting Client: " + message.decoderResult().toString());
+               //log.warn("Malformed Message, Disconnecting Client: " + message.decoderResult().toString());
+               // RESET Decoder
+               /* FIXME The Netty Codec will not recover after a bad message is received (this can happen if the full
+               message is not on the buffer at the time of decoding.  In this case we reset the decoder*/
+               //decoder = new MQTTDecoder(MAX_MESSAGE_LENGTH);
                return;
             }
 
@@ -119,7 +117,6 @@ public class MQTTProtocolHandler
                   handleConnack((MqttConnAckMessage) message);
                   break;
                case PUBLISH:
-                  count++;
                   handlePublish((MqttPublishMessage) message);
                   break;
                case PUBACK:
@@ -173,7 +170,6 @@ public class MQTTProtocolHandler
     *
     * @param connect
     */
-
    public void handleConnect(MqttConnectMessage connect) throws Exception
    {
       String clientId = connect.payload().clientIdentifier();
@@ -378,6 +374,7 @@ public class MQTTProtocolHandler
          synchronized (this)
          {
             connection.write(channelBufferWrapper);
+            connection.checkFlushBatchBuffer();
          }
       }
       catch (Exception e)

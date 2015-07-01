@@ -6,6 +6,7 @@ import io.netty.handler.codec.mqtt.MqttMessageType;
 import io.netty.handler.codec.mqtt.MqttQoS;
 import org.apache.activemq.artemis.api.core.Pair;
 import org.apache.activemq.artemis.api.core.SimpleString;
+import org.apache.activemq.artemis.core.journal.IOAsyncTask;
 import org.apache.activemq.artemis.core.server.*;
 import org.apache.activemq.artemis.core.server.impl.ServerMessageImpl;
 import org.apache.activemq.artemis.utils.Random;
@@ -31,6 +32,9 @@ public class MQTTPublishManager
    {
       this.session = session;
    }
+
+   // TODO Remove.
+   private int messageRecieved = 0;
 
    void start() throws Exception
    {
@@ -110,14 +114,25 @@ public class MQTTPublishManager
 
       if (qos == 1)
       {
-         mqttid = (int) session.getServer().getStorageManager().generateID();
+         //mqttid = (int) session.getServer().getStorageManager().generateID();
+         mqttid = session.getSessionState().generateId();
+         short mqtt = (short) ((int) mqttid);
+         if (mqtt == 0)
+         {
+            System.out.println("0 ID");
+         }
       }
       else
       {
-         mqttid = session.getSessionState().getOutboundMqttId(consumerAddress, message.getMessageID());
+         //mqttid = session.getSessionState().getOutboundMqttId(consumerAddress, message.getMessageID());
+         mqttid = session.getSessionState().generateId();
          if (mqttid == null)
          {
             mqttid = (int) session.getServer().getStorageManager().generateID();
+         }
+         else if (mqttid == 0)
+         {
+            System.out.println("0 ID");
          }
       }
 
@@ -178,18 +193,32 @@ public class MQTTPublishManager
       }
    }
 
-   private void handlePubQoS1(ServerMessage message, int messageId) throws Exception
+   private void handlePubQoS1(ServerMessage message, final int messageId) throws Exception
    {
+      message.setDurable(MQTTUtil.DURABLE_MESSAGES);
       session.getServerSession().send(message, true);
-      session.getProtocolHandler().sendPubAck(messageId);
+      session.getServer().getStorageManager().afterCompleteOperations(new IOAsyncTask()
+      {
+         @Override
+         public void done()
+         {
+            session.getProtocolHandler().sendPubAck(messageId);
+         }
+
+         @Override
+         public void onError(int errorCode, String errorMessage)
+         {
+            log.error("Pub QoS1 Sync Failed");
+         }
+      });
    }
 
-   public void handlePubQoS2(ServerMessage message, int messageId) throws Exception
+   public void handlePubQoS2(ServerMessage message, final int messageId) throws Exception
    {
+      message.setDurable(MQTTUtil.DURABLE_MESSAGES);
       if (!session.getSessionState().getPub().contains(messageId))
       {
          session.getServerSession().send(message, true);
-         //session.getSessionState().storeMessageRef(messageId, new MQTTMessageInfo(messageId, message.getMessageID(), 0L,message.getAddress().toString()), false);
       }
       session.getSessionState().getPubRec().add(messageId);
       session.getProtocolHandler().sendPubRec(messageId);
@@ -236,7 +265,7 @@ public class MQTTPublishManager
    }
 
 
-   protected synchronized void handlePubAck(int messageId) throws Exception
+   protected void handlePubAck(int messageId) throws Exception
    {
       Pair<String, Long> pub1MessageInfo = session.getSessionState().removeOutbandMessageRef(messageId, 1);
       if (pub1MessageInfo != null)

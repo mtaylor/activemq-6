@@ -49,7 +49,7 @@ public class PahoMQTTTest extends MQTTTestSupport
       time = System.currentTimeMillis();
       for (int i = 0; i < 100; i++)
       {
-         client.publish("test", "1".getBytes(), 1, false);
+         client.publish("test", "1sadddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd".getBytes(), 1, false);
          messagesSent++;
       }
 

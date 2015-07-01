@@ -34,6 +34,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.activemq.artemis.api.core.TransportConfiguration;
 import org.apache.activemq.artemis.core.remoting.impl.netty.TransportConstants;
 import org.apache.activemq.artemis.core.server.ActiveMQServer;
+import org.apache.activemq.artemis.core.settings.impl.AddressSettings;
 import org.apache.activemq.artemis.jms.client.ActiveMQConnectionFactory;
 import org.apache.activemq.artemis.tests.util.ActiveMQTestBase;
 import org.fusesource.mqtt.client.MQTT;
@@ -119,6 +120,9 @@ public class MQTTTestSupport extends ActiveMQTestBase
       server = createServer(true, true);
       addCoreConnector();
       addMQTTConnector();
+      AddressSettings addressSettings = new AddressSettings();
+      addressSettings.setMaxSizeBytes(999999999);
+      server.getAddressSettingsRepository().addMatch("#", addressSettings);
       server.start();
       server.waitForActivation(10, TimeUnit.SECONDS);
    }

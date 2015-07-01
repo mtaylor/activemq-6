@@ -45,6 +45,8 @@ public class MQTTUtil
 
    public static final boolean DUPLICATE_ID_PERSISTED = false;
 
+   public static final boolean DURABLE_MESSAGES = true;
+
    public static final String MQTT_ADDRESS_PREFIX = "$sys.mqtt.";
 
    public static final String MQTT_RETAIN_ADDRESS_PREFIX = "$sys.mqtt.retain.";

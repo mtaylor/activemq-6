@@ -30,7 +30,6 @@ import org.apache.activemq.artemis.core.server.ActiveMQServer;
 import org.apache.activemq.artemis.spi.core.protocol.RemotingConnection;
 import org.apache.activemq.artemis.spi.core.remoting.Connection;
 
-
 public class MQTTConnection implements RemotingConnection
 {
    private final Connection transportConnection;

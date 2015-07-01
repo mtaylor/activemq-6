@@ -34,6 +34,7 @@ public class FuseMQTTClientProvider implements MQTTClientProvider {
     public void connect(String host) throws Exception {
         mqtt.setHost(host);
         mqtt.setVersion("3.1.1");
+        mqtt.setClientId("Foo");
         // shut off connect retry
         mqtt.setConnectAttemptsMax(0);
         mqtt.setReconnectAttemptsMax(0);
